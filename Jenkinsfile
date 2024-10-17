@@ -1,17 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'  // Use Python 3.10 image
-        }
+  agent any
+  stages {
+    stage('Install Python') {
+    steps {
+        sh 'sudo apt-get update && sudo apt-get install -y python3'
+      }
     }
-    
-    stages {
-        stage('Run Python Script') {
-            steps {
-                // This command runs inside the Docker container
-                sh 'python hello_world.py'
-            }
-        }
+    stage('version') {
+      steps {
+        sh 'python3 --version'
+      }
     }
+    stage('hello') {
+      steps {
+        sh 'python3 helow.py'
+      }
+    }
+  }
 }
-
