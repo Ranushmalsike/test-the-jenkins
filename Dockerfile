@@ -1,15 +1,10 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.10-slim
+FROM python:3
 
-# Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy your Python script into the container
-COPY hello_world.py .
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install any dependencies (if you have a requirements.txt, for example)
-# COPY requirements.txt .
-# RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
 
-# Command to run your script
-CMD ["python", "helow.py"]
+CMD [ "python", "helow.py" ]
