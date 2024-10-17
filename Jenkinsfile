@@ -1,17 +1,18 @@
 pipeline {
     agent {
-        docker { 
-            image 'yourusername/yourimage:tag' 
-            args '-u root' // Optional: use this if you need root privileges
+        docker {
+            image 'python:3.10'  // Use Python 3.10 image
+            label 'docker-agent' // Run this on the agent labeled 'docker-agent'
         }
     }
     
     stages {
         stage('Run Python Script') {
             steps {
-                // This command will run inside the Docker container
-                sh 'python helow.py'
+                // This command runs inside the Docker container
+                sh 'python hello_world.py'
             }
         }
     }
 }
+
