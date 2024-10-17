@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Install Python') {
     steps {
-        sh 'pacman -S python3'
+        sh 'apt install python3'
       }
     }
     stage('version') {
