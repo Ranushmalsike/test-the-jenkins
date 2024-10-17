@@ -1,15 +1,16 @@
 pipeline {
-    agent any
-
-    stages {
-        stage("check version") {
-            steps {
-                sh 'python3 --version'
-            }
+    agent {
+        docker { 
+            image 'yourusername/yourimage:tag' 
+            args '-u root' // Optional: use this if you need root privileges
         }
-        stage("test") {
+    }
+    
+    stages {
+        stage('Run Python Script') {
             steps {
-                sh 'python3 helow.py'
+                // This command will run inside the Docker container
+                sh 'python helow.py'
             }
         }
     }

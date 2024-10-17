@@ -1,9 +1,15 @@
-FROM jenkins/jenkins:lts
+# Use the official Python image from the Docker Hub
+FROM python:3.10-slim
 
-USER root
+# Set the working directory inside the container
+WORKDIR /app
 
-# Install Python
-RUN apt-get update && apt-get install -y python3 python3-pip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Copy your Python script into the container
+COPY hello_world.py .
 
-USER jenkins
+# Install any dependencies (if you have a requirements.txt, for example)
+# COPY requirements.txt .
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# Command to run your script
+CMD ["python", "helow.py"]
