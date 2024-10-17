@@ -1,14 +1,14 @@
-pipline {
+pipeline {
     agent any
 
-    stages{
-        stage("check version"){
-            steps{
+    stages {
+        stage("check version") {
+            steps {
                 sh 'python3 --version'
             }
         }
-        stage("test"){
-            steps{
+        stage("test") {
+            steps {
                 sh 'python3 helow.py'
             }
         }
