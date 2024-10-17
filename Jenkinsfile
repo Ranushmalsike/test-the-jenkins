@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Install Python') {
     steps {
-        sh 'RUN apt-get update && apt-get install -y python3'
+        sh 'apt-get update && apt-get install -y python3'
       }
     }
     stage('version') {
