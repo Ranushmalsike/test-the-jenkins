@@ -3,10 +3,15 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'python3 --version'
+                sh 'python --version'
             }
         }
         stage('hello') {
+            steps {
+                sh 'python helow.py'
+            }
+        }
+        stage('hello2') {
             steps {
                 sh 'python3 helow.py'
             }
