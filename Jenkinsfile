@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.9'  // or whatever version you need
-        }
-    }
+    agent any
     stages {
         stage('Setup Python') {
             steps {
