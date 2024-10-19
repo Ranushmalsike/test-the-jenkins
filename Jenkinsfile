@@ -4,33 +4,30 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // This will check out your repository
                 checkout scm
             }
         }
 
-        stage('Debug Environment') {
+        stage('Setup Python') {
             steps {
-                sh 'echo $PATH'
-                sh 'which python || which python3 || echo "Python not found"'
+                // This assumes Python is already installed on your Jenkins agent
+                // If it's not, you might need to install it here
+                sh 'python --version'
             }
         }
 
         stage('Run Script') {
             steps {
-                script {
-                    def pythonCmd = sh(script: 'which python || which python3', returnStdout: true).trim()
-                    if (pythonCmd) {
-                        sh "${pythonCmd} helow.py"
-                    } else {
-                        error "Python not found. Please install Python on the Jenkins server."
-                    }
-                }
+                // Run the Python script
+                sh 'python helow.py'
             }
         }
     }
 
     post {
         always {
+            // Clean up workspace
             cleanWs()
         }
     }
