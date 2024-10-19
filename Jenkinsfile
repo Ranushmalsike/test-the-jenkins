@@ -7,5 +7,10 @@ pipeline {
             }
         }
         // ... rest of your pipeline
+        stage('test') {
+            steps {
+                sh 'python3 helow.py'
+            }
+        }
     }
 }
