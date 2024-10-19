@@ -20,7 +20,7 @@ pipeline {
                 script {
                     def pythonCmd = sh(script: 'which python || which python3', returnStdout: true).trim()
                     if (pythonCmd) {
-                        sh "${pythonCmd} hello.py"
+                        sh "${pythonCmd} helow.py"
                     } else {
                         error "Python not found. Please install Python on the Jenkins server."
                     }
