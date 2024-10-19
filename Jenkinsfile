@@ -1,21 +1,34 @@
 pipeline {
-    agent { docker { image 'python:3.13.0-alpine3.20' } }
+    agent any
+
     stages {
-        stage('build') {
+        stage('Checkout') {
             steps {
+                // This will check out your repository
+                checkout scm
+            }
+        }
+
+        stage('Setup Python') {
+            steps {
+                // This assumes Python is already installed on your Jenkins agent
+                // If it's not, you might need to install it here
                 sh 'python --version'
             }
         }
-        stage('hello') {
+
+        stage('Run Script') {
             steps {
-                sh 'python helow.py'
-            }
-        }
-        stage('hello2') {
-            steps {
-                sh 'python3 helow.py'
+                // Run the Python script
+                sh 'python hello.py'
             }
         }
     }
-}
 
+    post {
+        always {
+            // Clean up workspace
+            cleanWs()
+        }
+    }
+}
