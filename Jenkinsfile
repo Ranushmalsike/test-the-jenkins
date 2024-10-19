@@ -4,30 +4,40 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // This will check out your repository
                 checkout scm
+            }
+        }
+
+        stage('Debug Environment') {
+            steps {
+                sh 'echo $PATH'
+                sh 'which python || echo "Python not found"'
+                sh 'which python3 || echo "Python3 not found"'
             }
         }
 
         stage('Setup Python') {
             steps {
-                // This assumes Python is already installed on your Jenkins agent
-                // If it's not, you might need to install it here
-                sh 'python --version'
+                script {
+                    try {
+                        sh 'python3 --version'
+                    } catch (Exception e) {
+                        echo "Python3 not found, attempting to install..."
+                        sh 'apt-get update && apt-get install -y python3'
+                    }
+                }
             }
         }
 
         stage('Run Script') {
             steps {
-                // Run the Python script
-                sh 'python hello.py'
+                sh 'python3 hello.py'
             }
         }
     }
 
     post {
         always {
-            // Clean up workspace
             cleanWs()
         }
     }
