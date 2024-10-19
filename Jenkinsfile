@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.9'
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -15,13 +11,20 @@ pipeline {
         stage('Debug Environment') {
             steps {
                 sh 'echo $PATH'
-                sh 'python --version'
+                sh 'which python || which python3 || echo "Python not found"'
             }
         }
 
         stage('Run Script') {
             steps {
-                sh 'python hello.py'
+                script {
+                    def pythonCmd = sh(script: 'which python || which python3', returnStdout: true).trim()
+                    if (pythonCmd) {
+                        sh "${pythonCmd} hello.py"
+                    } else {
+                        error "Python not found. Please install Python on the Jenkins server."
+                    }
+                }
             }
         }
     }
