@@ -25,7 +25,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCKER_CREDENTIALS_ID}") {
+                    docker.withRegistry('https://hub.docker.com/repository/docker/ranush/testpy1/', "${env.DOCKER_CREDENTIALS_ID}") {
                         docker.image("${env.DOCKER_IMAGE}").push('latest')
                     }
                 }
