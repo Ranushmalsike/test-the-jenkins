@@ -8,16 +8,8 @@ pipeline {
     }
 
     stages {
-        stage('Test Docker') {
-            steps {
-                script {
-                    sh 'docker info' // This should succeed if permissions are correct
-                }
-            }
-        }
         stage('Clone Repository') {
             steps {
-                // Clone the GitHub repository
                 git branch: 'main', url: 'https://github.com/Ranushmalsike/test-the-jenkins.git'
             }
         }
@@ -25,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image using the Dockerfile in the repo
+                    // Define customImage here
                     def customImage = docker.build("${IMAGE_NAME}:${env.BUILD_ID}")
                 }
             }
@@ -34,10 +26,10 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Login to Docker Hub and push the image
+                    // Ensure customImage is accessible here
                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                        customImage.push()
-                        customImage.push('latest') // Optionally push with 'latest' tag
+                        customImage.push() // This line will now work
+                        customImage.push('latest')
                     }
                 }
             }
@@ -46,7 +38,6 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    // Remove the local image after pushing to save space
                     sh "docker rmi ${IMAGE_NAME}:${env.BUILD_ID}"
                 }
             }
