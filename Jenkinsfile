@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Define Docker Hub credentials ID stored in Jenkins credentials store
+              // Define Docker Hub credentials ID stored in Jenkins credentials store
         DOCKERHUB_CREDENTIALS = '9227569f-7464-49e4-b54f-18c5b074cf85' // Replace with your actual credentials ID
         IMAGE_NAME = 'ranush/testpy1' // Replace with your Docker Hub username and desired image name
     }
@@ -17,8 +17,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Define customImage here
-                    def customImage = docker.build("${IMAGE_NAME}:${env.BUILD_ID}")
+                    // Define customImage here so it can be accessed later
+                    customImage = docker.build("${IMAGE_NAME}:${env.BUILD_ID}")
                 }
             }
         }
