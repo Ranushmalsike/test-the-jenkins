@@ -11,7 +11,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the GitHub repository
-                git 'https://github.com/Ranushmalsike/test-the-jenkins.git' // Replace with your repo URL
+                git branch: 'main', url: 'https://github.com/Ranushmalsike/test-the-jenkins.git'
             }
         }
 
