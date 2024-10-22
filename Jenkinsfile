@@ -8,6 +8,13 @@ pipeline {
     }
 
     stages {
+        stage('Test Docker') {
+            steps {
+                script {
+                    sh 'docker info' // This should succeed if permissions are correct
+                }
+            }
+        }
         stage('Clone Repository') {
             steps {
                 // Clone the GitHub repository
