@@ -5,6 +5,7 @@ pipeline {
               // Define Docker Hub credentials ID stored in Jenkins credentials store
         DOCKERHUB_CREDENTIALS = '9227569f-7464-49e4-b54f-18c5b074cf85' // Replace with your actual credentials ID
         IMAGE_NAME = 'ranush/testpy1' // Replace with your Docker Hub username and desired image name
+        TAG_NAME = "testsetup v1.0.${env.BUILD_ID}" // Example of creating a tag using the build ID
     }
 
     stages {
@@ -18,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Define customImage here so it can be accessed later
-                    customImage = docker.build("${IMAGE_NAME}:${env.BUILD_ID}")
+                    customImage = docker.build("${IMAGE_NAME}:${TAG_NAME}")
                 }
             }
         }
@@ -38,7 +39,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    sh "docker rmi ${IMAGE_NAME}:${env.BUILD_ID}"
+                    sh "docker rmi ${IMAGE_NAME}:${TAG_NAME}"
                 }
             }
         }
